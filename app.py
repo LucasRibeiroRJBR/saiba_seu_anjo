@@ -9,13 +9,13 @@ class Resultado(ctk.CTkToplevel):
         self.rowconfigure((0,1,2), weight=1)
         self.columnconfigure((0,1), weight=1)
         self.geometry('700x500')
-        self.after(100, self.lift)
+        self.after(100, self.lift)        
 
-        
+        self.lb_nome = ctk.CTkLabel(master=self,text=f'{variable.get()}',font=('Chicle',48))
+        self.lb_imagem = ctk.CTkLabel(master=self,text='',image=i.Imamish)
 
-        self.lb_teste = ctk.CTkLabel(master=self,text=f'{variable}',image=i.Imamish,font=('Chicle',48))
-
-        self.lb_teste.grid(row=0,column=0)
+        self.lb_nome.grid(row=0,column=0,columnspan=2)
+        self.lb_imagem.grid(row=1,column=0,columnspan=2)
 
 class App(ctk.CTk):
     def __init__(self):
