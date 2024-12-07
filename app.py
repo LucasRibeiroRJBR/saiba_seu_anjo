@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from pyglet import font,options
-from util import images as i
 from sqlite3 import connect,Cursor
+import util.CTkDataVisualizingWidgets as dv
 
 
 class Resultado(ctk.CTkToplevel):
@@ -9,7 +9,7 @@ class Resultado(ctk.CTkToplevel):
         super().__init__(parent)
         self.rowconfigure((0,1,2), weight=1)
         self.columnconfigure((0,1), weight=1)
-        #self.geometry('700x500')
+        self.geometry('700x500')
         self.after(100, self.lift)        
 
         self.lb_nome = ctk.CTkLabel(master=self,text=f'{self.consulta_dados(variable.get())[0][1]}',font=('Chicle',48))
@@ -34,8 +34,8 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__() 
         options['win32_gdi_font'] = True
-        self.geometry('500x300')
-        self.rowconfigure((0,1,2), weight=1)
+        self.geometry('500x800')
+        self.rowconfigure((0,1,2,3), weight=1)
         self.columnconfigure((0,1), weight=1)
         self.toplevel_resul = None
 
@@ -46,11 +46,13 @@ class App(ctk.CTk):
         self.lb_dt_nasc = ctk.CTkLabel(master=self,text='Data de Nascimento',font=('Chicle',18))
         self.in_dt_nasc = ctk.CTkEntry(master=self,font=('Chicle',18),textvariable=self.vDt_nasc)
         self.bt_show = ctk.CTkButton(master=self,text='Buscar',font=('Chicle',18),command=lambda:self.open_toplevel())
+        self.calendar = dv.CTkCalendar(master=self)
 
         self.letreiro.grid(row=0, column=0, columnspan=2)
         self.lb_dt_nasc.grid(row=1,column=0,sticky='e',padx=5)
         self.in_dt_nasc.grid(row=1,column=1,sticky='w',padx=5)
         self.bt_show.grid(row=2, column=0, columnspan=2,pady=15)
+        self.calendar.grid(row=3,column=0,columnspan=2)
 
     def open_toplevel(self):
         # Pass the main app variable to Toplevel
